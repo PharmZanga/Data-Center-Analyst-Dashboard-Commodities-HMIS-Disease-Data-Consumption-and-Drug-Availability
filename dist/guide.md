@@ -48,3 +48,7 @@ Proposed operational schedule: stock/consumption ingest daily at 06:00 Africa/Lu
 
 Run `node build.mjs` after changing dashboard.js, then `node verify.mjs`. Checks cover KPI complements, the stock denominator, known regression results, all province filters, district and facility drill-down, category filtering, empty disease selection and finite chart output. Province maps use generalized geoBoundaries 2020 province boundaries with visible CC BY 4.0 attribution. District choropleths remain outside this prototype. The prototype uses a fixed latest period and supplies no arbitrary daily date-range picker or editable forecast baseline.
 
+
+## Connected availability tabs
+
+Tracer drug availability and National eLMIS drug availability use dummy data only. Tracer reuses the prototype inventory records and selected location/category. The eLMIS stream uses a separate deterministic generator, excludes missing reports from its availability denominator, and remains national when location filters change. Both trends follow the selected period and stock KPIs reflect October 2026. The Executive overview links to both tabs and repeats their current availability figures. Source links open the existing Tracer Executive Summary and National Stock Status pages; they do not supply these dummy metrics. The eLMIS source URL is not configured. No live data fetch is performed. Edit connected-availability.js to replace these sample adapters with validated data.
