@@ -2,7 +2,7 @@
 
 A lightweight Zambia public health dashboard for commodity stocks, HMIS disease surveillance, consumption and drug availability. It follows the five-tab control tower format with Ministry of Health branding, a Zambia coat of arms, turquoise accents and warehouse photography.
 
-**Prototype only:** all health and inventory records are deterministic simulated data. Districts and facilities are fictional. Branding does not imply official endorsement.
+**Mixed sources:** HMIS, prototype inventory and eLMIS use simulated data. Tracer availability and the in-page Tracer Executive Summary use an imported October 2026 aggregate snapshot from the public Tracer repository. Prototype districts and facilities are fictional. Branding does not imply official endorsement.
 
 [Hosted dashboard](https://zambia-national-control-tower-20261031.z123456.chatgpt.site/) (owner-private access) · [Data dictionary and operating guide](dist/guide.md) · [Stakeholder summary](dist/insights.html)
 
@@ -56,6 +56,8 @@ Edit `dashboard.js` for data and interaction logic, `template.html` and `build.m
 | `verify.mjs` | Calculation and filter validation |
 
 ## Data integration and hosting
+
+Tracer data is bundled in `dist/tracer-import.json` with source URL, import timestamp and SHA-256. The source includes weeks ending 11, 18 and 25 October 2026. The latest week is selected initially. `tracer-import.js` renders the imported national/province/commodity rollups without recomputing their definitions. The global Province filter applies to Tracer availability; prototype district/facility/category and monthly period filters do not. Executive figures and commodity tables remain national. Tracer Executive Summary opens as an internal tab. No named-facility or patient records are imported. This is a saved snapshot, not automatic synchronization. To refresh, download the source JSON to `outputs/tracer-oct-published.json`, run `node import-tracer.mjs`, then rebuild and verify. eLMIS remains dummy data.
 
 The guide describes consumption, stock and disease fact tables and commodity, location, disease and time dimensions. Replace the sample generator with validated aggregate extracts before operational use. Interactive province maps use geoBoundaries 2020 Zambia boundaries (Zambia Data Hub, CC BY 4.0), generalized and embedded as SVG for offline use; see [map attribution](dist/map-source.md). Live refresh, email/SMS delivery, server-enforced roles and actual district choropleths are not implemented. No patient-level records are included.
 
