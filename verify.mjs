@@ -1,0 +1,24 @@
+import vm from 'node:vm';
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const html=fs.readFileSync('dist/index.html','utf8');
+new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
+for(const id of ['fd','ff','cat','tabs','v0','v1','v2','v3','v4'])assert.equal(html.split('id="'+id+'"').length,2);
+const elements=new Map();
+const el=id=>{if(!elements.has(id))elements.set(id,{value:'',innerHTML:'',textContent:'',style:{},dataset:{},setAttribute(){},insertAdjacentHTML(_,s){this.innerHTML+=s},focus(){}});return elements.get(id)};
+const context={document:{querySelector:el,querySelectorAll:()=>[],addEventListener(){},documentElement:{dataset:{}}},window:{},setTimeout,console,URL,Blob,print(){}};
+vm.createContext(context);vm.runInContext(fs.readFileSync('dashboard.js','utf8'),context);
+const run=s=>vm.runInContext(s,context);
+assert.equal(context.window.dashboardSnapshot.facilities,120);
+assert(Math.abs(context.window.dashboardSnapshot.stockoutRate+context.window.dashboardSnapshot.availability-100)<1e-9);
+assert(run('ROWS.every(r=>Math.abs(r.m-r.stock/(r.u/3))<1e-9)'));
+assert(run('regression([[1,2],[2,4],[3,6]]).r2')===1);
+assert(run('regression([[1,2]]).r2')===null);
+for(let p=0;p<10;p++){run(`st.p=${p};st.d=st.f=-1;render()`);assert.equal(context.window.dashboardSnapshot.facilities,12)}
+run('st.d=27;st.f=-1;render()');assert.equal(context.window.dashboardSnapshot.facilities,4);
+run('st.f=108;st.n=3;render()');assert.equal(context.window.dashboardSnapshot.facilities,1);
+run("st.cat='Vaccine';st.dz=[0,0,0];render()");assert.equal(context.window.dashboardSnapshot.rows.length,1);
+for(const e of elements.values())assert(!/NaN|Infinity/.test(e.innerHTML),'Non-finite chart output');
+run("st.p=st.d=st.f=-1;st.n=12;st.cat='';st.dz=[1,1,1];render()");
+fs.writeFileSync('snapshot.json',JSON.stringify(context.window.dashboardSnapshot,null,2));
+console.log('Passed: national KPIs, stock denominator, regression, all provinces, district/facility drill-down, 3-month period, category and empty disease selection.');
