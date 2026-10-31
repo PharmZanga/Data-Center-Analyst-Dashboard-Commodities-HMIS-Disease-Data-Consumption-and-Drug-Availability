@@ -4,7 +4,7 @@ This offline prototype preserves the five-tab format of the supplied dashboard. 
 
 ## Using the dashboard
 
-Open index.html in a modern browser, including offline. Use Province, District and Facility to drill down; province tiles reset lower location filters. Category filters stock and availability metrics; the disease/commodity pair controls linked trends, correlation and forecast. Disease checkboxes control the disease charts, district rankings and weekly table. The time filter selects the latest 3, 6 or 12 months. Inventory and reporting KPIs always reflect October 2026. Province tiles retain national context. Search in Commodity stock filters the commodity table, ranking and critical facility list. CSV exports the filtered commodity table. Print / save PDF prints all five tabs. Light / dark changes the current page theme.
+Open index.html in a modern browser, including offline. Use Province, District and Facility to drill down; province maps reset lower location filters. Category filters stock and availability metrics; the disease/commodity pair controls linked trends, correlation and forecast. Disease checkboxes control the disease charts, district rankings and weekly table. The time filter selects the latest 3, 6 or 12 months. Inventory and reporting KPIs always reflect October 2026. Province maps retain national context. Search in Commodity stock filters the commodity table, ranking and critical facility list. CSV exports the filtered commodity table. Print / save PDF prints all five tabs. Light / dark changes the current page theme.
 
 ## Data dictionary and integration schema
 
@@ -46,4 +46,5 @@ Proposed operational schedule: stock/consumption ingest daily at 06:00 Africa/Lu
 
 ## Validation and limitations
 
-Run `node build.mjs` after changing dashboard.js, then `node verify.mjs`. Checks cover KPI complements, the stock denominator, known regression results, all province filters, district and facility drill-down, category filtering, empty disease selection and finite chart output. Province maps are schematic tiles; accurate district choropleths require verified geographic boundaries. The prototype uses a fixed latest period and supplies no arbitrary daily date-range picker or editable forecast baseline.
+Run `node build.mjs` after changing dashboard.js, then `node verify.mjs`. Checks cover KPI complements, the stock denominator, known regression results, all province filters, district and facility drill-down, category filtering, empty disease selection and finite chart output. Province maps use generalized geoBoundaries 2020 province boundaries with visible CC BY 4.0 attribution. District choropleths remain outside this prototype. The prototype uses a fixed latest period and supplies no arbitrary daily date-range picker or editable forecast baseline.
+

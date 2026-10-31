@@ -33,6 +33,7 @@ Then visit `http://localhost:8769`.
 Node.js 20+ is sufficient; there are no npm dependencies.
 
 ```sh
+node build-map.mjs
 node build.mjs
 node verify.mjs
 node make-insights.mjs
@@ -56,7 +57,7 @@ Edit `dashboard.js` for data and interaction logic, `template.html` and `build.m
 
 ## Data integration and hosting
 
-The guide describes consumption, stock and disease fact tables and commodity, location, disease and time dimensions. Replace the sample generator with validated aggregate extracts before operational use. Live refresh, email/SMS delivery, server-enforced roles and actual district choropleths are not implemented. No patient-level records are included.
+The guide describes consumption, stock and disease fact tables and commodity, location, disease and time dimensions. Replace the sample generator with validated aggregate extracts before operational use. Interactive province maps use geoBoundaries 2020 Zambia boundaries (Zambia Data Hub, CC BY 4.0), generalized and embedded as SVG for offline use; see [map attribution](dist/map-source.md). Live refresh, email/SMS delivery, server-enforced roles and actual district choropleths are not implemented. No patient-level records are included.
 
 Publish the contents of `dist/` to any static host. The existing private Sites deployment is maintained separately; pushing to this GitHub repository does not automatically redeploy it. This repository is the user-owned source copy of the current dashboard. No hosting credentials or private Sites configuration are included.
 
