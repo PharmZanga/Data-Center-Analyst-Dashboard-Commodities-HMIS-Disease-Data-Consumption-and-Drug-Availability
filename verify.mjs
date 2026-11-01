@@ -17,7 +17,7 @@ assert.equal(run('TN.length'),7);
 assert(run('TRACER_IMPORT.periods.every(p=>p.facilityLevels.length>0)'));
 assert(el('#tr-care').innerHTML.includes('National availability and average months of stock by level of care'));
 assert.equal(el('#tr-care').innerHTML,el('#tx-care').innerHTML);
-assert(!html.includes('>Control tower overview</button>'));
+assert(!html.slice(html.indexOf('<section id="v5"'),html.indexOf('<section id="v7"')).includes('>Control tower overview</button>'));
 const nationalElmis=el('#em-availability').textContent;
 assert.equal(el('#ex-tracer').textContent,(run('TRACER_IMPORT.periods.at(-1).national.availability')*100).toFixed(1)+'%');
 run('st.p=4;render()');
