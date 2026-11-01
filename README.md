@@ -34,7 +34,9 @@ Node.js 20+ is sufficient; there are no npm dependencies.
 
 ```sh
 node build-map.mjs
+node build-actions.mjs
 node build.mjs
+node build-offline.mjs
 node verify.mjs
 node make-insights.mjs
 ```
@@ -56,6 +58,8 @@ Edit `dashboard.js` for data and interaction logic, `template.html` and `build.m
 | `verify.mjs` | Calculation and filter validation |
 
 ## Data integration and hosting
+
+The **Tracer → Actions & risk** workspace adds historical stock-cover scenarios, district/unit triage, same-district redistribution review, validation issues, observed reporting-coverage history, a browser-local action log with edit history, downloadable weekly briefs and a standalone offline snapshot. `build-actions.mjs` derives evidence from the imported raw October extract at `outputs/tracer-oct-published.json` (download the public source first). `actions-data.js` embeds compact evidence; `dist/action-evidence.json` exports full derived evidence. `build-offline.mjs` packages the rendered dashboard, data, CSS and imagery into `dist/offline.html`. The guide documents assumptions, exclusions and data gaps. No transfers or communications are executed. These are October-snapshot scenarios, not present-day stock predictions.
 
 Tracer data is bundled in `dist/tracer-import.json` with source URL, import timestamp and SHA-256. The source includes weeks ending 11, 18 and 25 October 2026. The latest week is selected initially. `tracer-import.js` renders the imported national/province/commodity rollups without recomputing their definitions. The global Province filter applies to Tracer availability; prototype district/facility/category and monthly period filters do not. Executive figures and commodity tables remain national. Tracer Executive Summary opens as an internal tab. No named-facility or patient records are imported. This is a saved snapshot, not automatic synchronization. To refresh, download the source JSON to `outputs/tracer-oct-published.json`, run `node import-tracer.mjs`, then rebuild and verify. eLMIS remains dummy data.
 

@@ -11,7 +11,7 @@ const q=$('#tr-search').value.toLowerCase();table('tr-table',['Commodity','Sourc
 renderCareChart('tr-care',chosen.facilityLevels);renderCareChart('tx-care',chosen.facilityLevels);$('#tx-date').textContent=chosen.label;$('#tx-availability').textContent=percentage(chosen.national.availability);$('#tx-mos').textContent=chosen.national.mos.toFixed(2);$('#tx-stockout').textContent=fm(chosen.national.stockout);$('#tx-reporting').textContent=chosen.counts.districtSubmissionFootprint+' / '+chosen.counts.expectedDistricts;
 table('tx-provinces',['Province','Availability','Source MOS','Reported tracer records','Stockout-band records'],chosen.provinces.map(p=>[esc(p.name),percentage(p.availability),p.mos.toFixed(2),fm(p.rows),fm(p.stockout)]));
 const lowest=[...chosen.provinces].sort((a,b)=>a.availability-b.availability)[0];$('#tx-priorities').innerHTML=[`${fm(chosen.national.stockout)} stockout-band records in the national source snapshot.`,`${lowest.name} has the lowest province availability: ${percentage(lowest.availability)}.`,`${chosen.counts.expectedDistricts-chosen.counts.districtSubmissionFootprint} districts outside the submission footprint. Completeness gaps may differ.`,`${fm(chosen.national.dataGap)} tracer records classified as data gaps.`].map(s=>`<li>${esc(s)}</li>`).join('');
-$('#tx-provenance').textContent=`Source: ${chosen.source}. Imported ${TRACER_IMPORT.importedAt}. Source SHA-256: ${TRACER_IMPORT.sha256}.`;
+renderAnalystActions();$('#tx-provenance').textContent=`Source: ${chosen.source}. Imported ${TRACER_IMPORT.importedAt}. Source SHA-256: ${TRACER_IMPORT.sha256}.`;
 }
 
 function renderCareChart(id,rows){
